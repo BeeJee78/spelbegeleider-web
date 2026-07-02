@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import type { Goal, Match, TeamSide } from './models'
-import { formatSeconds, homeGoals, awayGoals, shareText } from './models'
+import { formatSeconds, homeGoals, awayGoals } from './models'
+import { shareMatchImage } from './shareImage'
 import {
   useMatch,
   periodTitle,
@@ -51,17 +52,7 @@ export default function MatchView({ match: initialMatch, onDismiss }: Props) {
   }
 
   async function share() {
-    const text = shareText(match)
-    if (navigator.share) {
-      try {
-        await navigator.share({ text })
-      } catch {
-        // gebruiker annuleerde de share sheet
-      }
-    } else {
-      await navigator.clipboard.writeText(text)
-      alert('Uitslag gekopieerd naar klembord')
-    }
+    await shareMatchImage(match)
   }
 
   return (

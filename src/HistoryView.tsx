@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import type { Goal, Match } from './models'
-import { homeGoals, awayGoals, scoreString, shareText } from './models'
+import { homeGoals, awayGoals, scoreString } from './models'
 import { savedMatches, deleteMatch } from './storage'
+import { shareMatchImage } from './shareImage'
 
 export default function HistoryView({ onClose }: { onClose: () => void }) {
   const [matches, setMatches] = useState<Match[]>(savedMatches())
@@ -68,17 +69,7 @@ function HistoryRow({ match, onOpen, onDelete }: { match: Match; onOpen: () => v
 
 function MatchDetail({ match, onClose }: { match: Match; onClose: () => void }) {
   async function share() {
-    const text = shareText(match)
-    if (navigator.share) {
-      try {
-        await navigator.share({ text })
-      } catch {
-        // geannuleerd
-      }
-    } else {
-      await navigator.clipboard.writeText(text)
-      alert('Uitslag gekopieerd naar klembord')
-    }
+    await shareMatchImage(match)
   }
 
   const goalsByPeriod = new Map<number, Goal[]>()
