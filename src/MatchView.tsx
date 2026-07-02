@@ -279,8 +279,19 @@ export default function MatchView({ match: initialMatch, onDismiss }: Props) {
 function GoalButton({ team, name, onGoal, onUndo }: { team: TeamSide; name: string; onGoal: () => void; onUndo: () => void }) {
   const longPressTimer = useRef<number | null>(null)
   const longPressFired = useRef(false)
+  const startPos = useRef<{ x: number; y: number } | null>(null)
+  const moved = useRef(false)
 
-  function down() {
+  function clearTimer() {
+    if (longPressTimer.current !== null) {
+      clearTimeout(longPressTimer.current)
+      longPressTimer.current = null
+    }
+  }
+
+  function down(e: React.PointerEvent) {
+    startPos.current = { x: e.clientX, y: e.clientY }
+    moved.current = false
     longPressFired.current = false
     longPressTimer.current = window.setTimeout(() => {
       longPressFired.current = true
@@ -288,26 +299,34 @@ function GoalButton({ team, name, onGoal, onUndo }: { team: TeamSide; name: stri
     }, 600)
   }
 
-  function up() {
-    if (longPressTimer.current !== null) {
-      clearTimeout(longPressTimer.current)
-      longPressTimer.current = null
+  function move(e: React.PointerEvent) {
+    // Veegbeweging (scrollen/swipen) mag geen doelpunt registreren
+    if (!startPos.current || moved.current) return
+    const dx = e.clientX - startPos.current.x
+    const dy = e.clientY - startPos.current.y
+    if (Math.hypot(dx, dy) > 10) {
+      moved.current = true
+      clearTimer()
     }
-    if (!longPressFired.current) onGoal()
+  }
+
+  function up() {
+    clearTimer()
+    if (!longPressFired.current && !moved.current) onGoal()
+    startPos.current = null
   }
 
   function cancel() {
-    if (longPressTimer.current !== null) {
-      clearTimeout(longPressTimer.current)
-      longPressTimer.current = null
-    }
+    clearTimer()
     longPressFired.current = false
+    startPos.current = null
   }
 
   return (
     <button
       className={`goal-btn ${team}`}
       onPointerDown={down}
+      onPointerMove={move}
       onPointerUp={up}
       onPointerLeave={cancel}
       onPointerCancel={cancel}
