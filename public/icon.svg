@@ -1,26 +1,23 @@
-<svg width="512" height="512" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<svg width="512" height="512" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#1B5E20"/>
-      <stop offset="100%" stop-color="#0D2B10"/>
-    </linearGradient>
-    <linearGradient id="ball" x1="0.3" y1="0.1" x2="0.8" y2="0.9">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="100%" stop-color="#d0d0d0"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#43A047"/>
+      <stop offset="100%" stop-color="#1B5E20"/>
     </linearGradient>
   </defs>
-  <rect width="200" height="200" rx="45" fill="url(#bg)"/>
-  <circle cx="100" cy="100" r="88" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1.5"/>
-  <line x1="100" y1="12" x2="100" y2="188" stroke="rgba(255,255,255,0.04)" stroke-width="1.5"/>
-  <circle cx="95" cy="92" r="54" fill="url(#ball)"/>
-  <path d="M95 50 L113 63 L107 83 L83 83 L77 63 Z" fill="#222" opacity="0.85"/>
-  <path d="M95 50 L77 63 L60 52 L63 33 L83 30 Z" fill="none" stroke="#222" stroke-width="1.5" opacity="0.4"/>
-  <path d="M95 50 L113 63 L128 52 L125 33 L107 30 Z" fill="none" stroke="#222" stroke-width="1.5" opacity="0.4"/>
-  <path d="M83 83 L70 98 L80 114 L110 114 L120 98 L107 83 Z" fill="none" stroke="#222" stroke-width="1.5" opacity="0.4"/>
-  <circle cx="145" cy="55" r="26" fill="#F9A825"/>
-  <circle cx="145" cy="55" r="22" fill="#1B5E20"/>
-  <circle cx="145" cy="55" r="18" fill="none" stroke="#F9A825" stroke-width="2"/>
-  <line x1="145" y1="42" x2="145" y2="55" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="145" y1="55" x2="153" y2="61" stroke="#F9A825" stroke-width="2.5" stroke-linecap="round"/>
-  <circle cx="145" cy="55" r="2.5" fill="white"/>
+  <rect width="180" height="180" fill="url(#bg)"/>
+  <!-- Maai-strepen -->
+  <rect x="0" y="0" width="180" height="30" fill="rgba(255,255,255,0.045)"/>
+  <rect x="0" y="60" width="180" height="30" fill="rgba(255,255,255,0.045)"/>
+  <rect x="0" y="120" width="180" height="30" fill="rgba(255,255,255,0.045)"/>
+  <!-- Veld -->
+  <rect x="30" y="18" width="120" height="144" rx="3" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="5"/>
+  <line x1="30" y1="90" x2="150" y2="90" stroke="rgba(255,255,255,0.85)" stroke-width="5"/>
+  <circle cx="90" cy="90" r="22" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="5"/>
+  <!-- Doelgebieden -->
+  <rect x="60" y="18" width="60" height="20" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="5"/>
+  <rect x="60" y="142" width="60" height="20" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="5"/>
+  <!-- Bal op middenstip -->
+  <circle cx="90" cy="90" r="10" fill="#fff"/>
+  <circle cx="90" cy="90" r="4" fill="#1B5E20"/>
 </svg>

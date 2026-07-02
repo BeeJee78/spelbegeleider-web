@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>iOS Icon Opties – Spelbegeleider</title>
+<style>
+  body { background: #16181d; font-family: -apple-system, sans-serif; display: flex; flex-wrap: wrap; gap: 44px; padding: 44px; justify-content: center; }
+  .option { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .label { color: #fff; font-size: 14px; font-weight: 600; opacity: 0.7; }
+  svg { border-radius: 22.5%; box-shadow: 0 10px 36px rgba(0,0,0,0.55); }
+  .small svg { border-radius: 22.5%; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+  .row { display: flex; align-items: flex-end; gap: 16px; }
+</style>
+</head>
+<body>
+
+<!-- A: Gestileerde bal met veldcirkel -->
+<div class="option">
+<div class="row">
+<svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bgA" cx="0.35" cy="0.25" r="1.1">
+      <stop offset="0%" stop-color="#2E7D32"/>
+      <stop offset="55%" stop-color="#174D1B"/>
+      <stop offset="100%" stop-color="#0A2410"/>
+    </radialGradient>
+    <linearGradient id="ballA" x1="0.25" y1="0.1" x2="0.75" y2="0.95">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#cfd8cf"/>
+    </linearGradient>
+  </defs>
+  <rect width="180" height="180" fill="url(#bgA)"/>
+  <!-- Middencirkel veld -->
+  <circle cx="90" cy="90" r="62" fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="3"/>
+  <line x1="0" y1="90" x2="28" y2="90" stroke="rgba(255,255,255,0.14)" stroke-width="3"/>
+  <line x1="152" y1="90" x2="180" y2="90" stroke="rgba(255,255,255,0.14)" stroke-width="3"/>
+  <!-- Bal -->
+  <circle cx="90" cy="90" r="40" fill="url(#ballA)"/>
+  <path d="M90 60 L103 69.5 L98 85 L82 85 L77 69.5 Z" fill="#1a1a1a"/>
+  <path d="M77 69.5 L64 66 L58 79 L68 91 L82 85 Z" fill="none" stroke="#1a1a1a" stroke-width="2" opacity="0.45"/>
+  <path d="M103 69.5 L116 66 L122 79 L112 91 L98 85 Z" fill="none" stroke="#1a1a1a" stroke-width="2" opacity="0.45"/>
+  <path d="M82 85 L68 91 L72 107 L108 107 L112 91 L98 85 Z" fill="none" stroke="#1a1a1a" stroke-width="2" opacity="0.45"/>
+  <!-- Glans -->
+  <ellipse cx="78" cy="72" rx="20" ry="12" fill="rgba(255,255,255,0.35)" transform="rotate(-25 78 72)"/>
+</svg>
+<span class="small"><svg width="60" height="60" viewBox="0 0 180 180"><use href="#iconA"/><rect width="180" height="180" fill="url(#bgA)"/><circle cx="90" cy="90" r="62" fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="3"/><line x1="0" y1="90" x2="28" y2="90" stroke="rgba(255,255,255,0.14)" stroke-width="3"/><line x1="152" y1="90" x2="180" y2="90" stroke="rgba(255,255,255,0.14)" stroke-width="3"/><circle cx="90" cy="90" r="40" fill="url(#ballA)"/><path d="M90 60 L103 69.5 L98 85 L82 85 L77 69.5 Z" fill="#1a1a1a"/><path d="M77 69.5 L64 66 L58 79 L68 91 L82 85 Z" fill="none" stroke="#1a1a1a" stroke-width="2" opacity="0.45"/><path d="M103 69.5 L116 66 L122 79 L112 91 L98 85 Z" fill="none" stroke="#1a1a1a" stroke-width="2" opacity="0.45"/><path d="M82 85 L68 91 L72 107 L108 107 L112 91 L98 85 Z" fill="none" stroke="#1a1a1a" stroke-width="2" opacity="0.45"/><ellipse cx="78" cy="72" rx="20" ry="12" fill="rgba(255,255,255,0.35)" transform="rotate(-25 78 72)"/></svg></span>
+</div>
+<span class="label">A · Aftrap (bal op middenstip)</span>
+</div>
+
+<!-- B: Fluitje diagonaal, premium donker -->
+<div class="option">
+<div class="row">
+<svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgB" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#12241465"/>
+      <stop offset="0%" stop-color="#152718"/>
+      <stop offset="100%" stop-color="#060D07"/>
+    </linearGradient>
+    <linearGradient id="accB" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#9CFF3D"/>
+      <stop offset="100%" stop-color="#4CAF50"/>
+    </linearGradient>
+  </defs>
+  <rect width="180" height="180" fill="url(#bgB)"/>
+  <!-- Subtiel veldraster -->
+  <g stroke="rgba(255,255,255,0.045)" stroke-width="1">
+    <line x1="45" y1="0" x2="45" y2="180"/><line x1="90" y1="0" x2="90" y2="180"/><line x1="135" y1="0" x2="135" y2="180"/>
+    <line x1="0" y1="45" x2="180" y2="45"/><line x1="0" y1="90" x2="180" y2="90"/><line x1="0" y1="135" x2="180" y2="135"/>
+  </g>
+  <!-- Timer-ring -->
+  <circle cx="90" cy="90" r="55" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"/>
+  <path d="M90 35 A55 55 0 1 1 51 51" fill="none" stroke="url(#accB)" stroke-width="8" stroke-linecap="round"/>
+  <!-- Bal in het midden -->
+  <circle cx="90" cy="90" r="30" fill="#fff"/>
+  <path d="M90 68 L100 75 L96 87 L84 87 L80 75 Z" fill="#1a1a1a"/>
+  <path d="M84 87 L74 92 L77 104 L103 104 L106 92 L96 87 Z" fill="none" stroke="#1a1a1a" stroke-width="1.6" opacity="0.45"/>
+  <path d="M80 75 L70 73 L66 83 L74 92 L84 87 Z" fill="none" stroke="#1a1a1a" stroke-width="1.6" opacity="0.45"/>
+  <path d="M100 75 L110 73 L114 83 L106 92 L96 87 Z" fill="none" stroke="#1a1a1a" stroke-width="1.6" opacity="0.45"/>
+  <!-- Wijzer-stip bovenaan de ring -->
+  <circle cx="90" cy="35" r="7" fill="#9CFF3D"/>
+</svg>
+<span class="small"><svg width="60" height="60" viewBox="0 0 180 180"><rect width="180" height="180" fill="url(#bgB)"/><circle cx="90" cy="90" r="55" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"/><path d="M90 35 A55 55 0 1 1 51 51" fill="none" stroke="url(#accB)" stroke-width="8" stroke-linecap="round"/><circle cx="90" cy="90" r="30" fill="#fff"/><path d="M90 68 L100 75 L96 87 L84 87 L80 75 Z" fill="#1a1a1a"/><circle cx="90" cy="35" r="7" fill="#9CFF3D"/></svg></span>
+</div>
+<span class="label">B · Timer-ring rond bal</span>
+</div>
+
+<!-- C: Groot speelveld verticaal -->
+<div class="option">
+<div class="row">
+<svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgC" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#43A047"/>
+      <stop offset="100%" stop-color="#1B5E20"/>
+    </linearGradient>
+  </defs>
+  <rect width="180" height="180" fill="url(#bgC)"/>
+  <!-- Maai-strepen -->
+  <rect x="0" y="0" width="180" height="30" fill="rgba(255,255,255,0.045)"/>
+  <rect x="0" y="60" width="180" height="30" fill="rgba(255,255,255,0.045)"/>
+  <rect x="0" y="120" width="180" height="30" fill="rgba(255,255,255,0.045)"/>
+  <!-- Veld -->
+  <rect x="30" y="18" width="120" height="144" rx="3" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="5"/>
+  <line x1="30" y1="90" x2="150" y2="90" stroke="rgba(255,255,255,0.85)" stroke-width="5"/>
+  <circle cx="90" cy="90" r="22" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="5"/>
+  <!-- Doelgebieden -->
+  <rect x="60" y="18" width="60" height="20" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="5"/>
+  <rect x="60" y="142" width="60" height="20" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="5"/>
+  <!-- Bal op middenstip -->
+  <circle cx="90" cy="90" r="10" fill="#fff"/>
+  <circle cx="90" cy="90" r="4" fill="#1B5E20"/>
+</svg>
+<span class="small"><svg width="60" height="60" viewBox="0 0 180 180"><rect width="180" height="180" fill="url(#bgC)"/><rect x="0" y="0" width="180" height="30" fill="rgba(255,255,255,0.045)"/><rect x="0" y="60" width="180" height="30" fill="rgba(255,255,255,0.045)"/><rect x="0" y="120" width="180" height="30" fill="rgba(255,255,255,0.045)"/><rect x="30" y="18" width="120" height="144" rx="3" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="5"/><line x1="30" y1="90" x2="150" y2="90" stroke="rgba(255,255,255,0.85)" stroke-width="5"/><circle cx="90" cy="90" r="22" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="5"/><rect x="60" y="18" width="60" height="20" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="5"/><rect x="60" y="142" width="60" height="20" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="5"/><circle cx="90" cy="90" r="10" fill="#fff"/><circle cx="90" cy="90" r="4" fill="#1B5E20"/></svg></span>
+</div>
+<span class="label">C · Speelveld</span>
+</div>
+
+<!-- D: Neon bal minimaal -->
+<div class="option">
+<div class="row">
+<svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bgD" cx="0.5" cy="0.42" r="0.85">
+      <stop offset="0%" stop-color="#1A3A1E"/>
+      <stop offset="100%" stop-color="#070E08"/>
+    </radialGradient>
+    <radialGradient id="glowD" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="rgba(156,255,61,0.5)"/>
+      <stop offset="70%" stop-color="rgba(156,255,61,0.08)"/>
+      <stop offset="100%" stop-color="rgba(156,255,61,0)"/>
+    </radialGradient>
+  </defs>
+  <rect width="180" height="180" fill="url(#bgD)"/>
+  <circle cx="90" cy="86" r="70" fill="url(#glowD)"/>
+  <!-- Neon lijn-bal -->
+  <circle cx="90" cy="86" r="42" fill="none" stroke="#9CFF3D" stroke-width="4"/>
+  <path d="M90 55 L105 66 L99.5 84 L80.5 84 L75 66 Z" fill="none" stroke="#9CFF3D" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M90 55 L90 44" stroke="#9CFF3D" stroke-width="4"/>
+  <path d="M105 66 L120 60" stroke="#9CFF3D" stroke-width="4"/>
+  <path d="M75 66 L60 60" stroke="#9CFF3D" stroke-width="4"/>
+  <path d="M99.5 84 L109 100" stroke="#9CFF3D" stroke-width="4"/>
+  <path d="M80.5 84 L71 100" stroke="#9CFF3D" stroke-width="4"/>
+  <!-- Tijd onder -->
+  <text x="90" y="155" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="24" font-weight="700" fill="rgba(255,255,255,0.85)" letter-spacing="1">25:00</text>
+</svg>
+<span class="small"><svg width="60" height="60" viewBox="0 0 180 180"><rect width="180" height="180" fill="url(#bgD)"/><circle cx="90" cy="86" r="70" fill="url(#glowD)"/><circle cx="90" cy="86" r="42" fill="none" stroke="#9CFF3D" stroke-width="4"/><path d="M90 55 L105 66 L99.5 84 L80.5 84 L75 66 Z" fill="none" stroke="#9CFF3D" stroke-width="4" stroke-linejoin="round"/><path d="M90 55 L90 44" stroke="#9CFF3D" stroke-width="4"/><path d="M105 66 L120 60" stroke="#9CFF3D" stroke-width="4"/><path d="M75 66 L60 60" stroke="#9CFF3D" stroke-width="4"/><path d="M99.5 84 L109 100" stroke="#9CFF3D" stroke-width="4"/><path d="M80.5 84 L71 100" stroke="#9CFF3D" stroke-width="4"/><text x="90" y="155" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="24" font-weight="700" fill="rgba(255,255,255,0.85)" letter-spacing="1">25:00</text></svg></span>
+</div>
+<span class="label">D · Neon bal + tijd</span>
+</div>
+
+</body>
+</html>
