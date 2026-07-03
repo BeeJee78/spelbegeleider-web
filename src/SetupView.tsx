@@ -32,8 +32,10 @@ export default function SetupView({ onStartMatch, onShowHistory, onShowRules }: 
       <div className="setup">
         <header className="setup-header">
           <div className="ball">⚽</div>
-          <h1>Spelbegeleider</h1>
-          <div className="subtitle">Jeugdvoetbal app</div>
+          <h1 className="wordmark">
+            SPEL<span>BEGELEIDER</span>
+          </h1>
+          <div className="subtitle-pill">JEUGDVOETBAL · JO8–JO10</div>
         </header>
 
         <div className="card">
