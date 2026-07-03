@@ -497,6 +497,49 @@ input {
   background: rgba(255, 255, 255, 0.1);
 }
 
+.side-logo {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 4px;
+}
+
+.input-row {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.input-row input {
+  flex: 1;
+  min-width: 0;
+}
+
+.logo-pick {
+  width: 52px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  background: var(--bg);
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.logo-pick img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.suggestion-logo {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
 .home-color { color: var(--home-text); }
 .away-color { color: var(--away-text); }
 
@@ -520,30 +563,22 @@ input {
   transform: scale(0.93);
 }
 
-.goal-btn.home {
-  background: rgba(21, 101, 192, 0.85);
-  box-shadow: 0 4px 10px rgba(21, 101, 192, 0.45);
-}
-
-.goal-btn.away {
-  background: rgba(183, 28, 28, 0.85);
-  box-shadow: 0 4px 10px rgba(183, 28, 28, 0.45);
-}
-
-.goal-btn.green {
-  background: rgba(46, 125, 50, 0.9);
-  box-shadow: 0 4px 10px rgba(76, 175, 80, 0.45);
-}
-
 .goal-btn .ball {
   font-size: 30px;
+}
+
+.btn-logo {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
 }
 
 .goal-btn .scoort {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 2.5px;
-  color: rgba(255, 255, 255, 0.65);
   margin: 5px 0;
 }
 

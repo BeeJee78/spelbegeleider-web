@@ -49,6 +49,13 @@ export async function shareMatchImage(match: Match): Promise<void> {
 }
 
 export async function renderMatchImage(match: Match): Promise<Blob> {
+  // Logo's vooraf laden (dataURLs)
+  const [homeLogoImg, awayLogoImg] = await Promise.all([
+    loadImage(match.homeLogo),
+    loadImage(match.awayLogo),
+  ])
+  const hasLogos = !!(homeLogoImg || awayLogoImg)
+
   const goals = match.goals
   const goalsH1 = goals.filter((g) => g.quarter <= 2)
   const goalsH2 = goals.filter((g) => g.quarter > 2)
@@ -62,7 +69,8 @@ export async function renderMatchImage(match: Match): Promise<Blob> {
     if (goalsH1.length > 0) goalsHeight += halfHeaderH + goalsH1.length * goalRowH
     if (goalsH2.length > 0) goalsHeight += halfHeaderH + goalsH2.length * goalRowH
   }
-  const H = goals.length > 0 ? 760 + goalsHeight + 30 : 900
+  const logoExtra = hasLogos ? 80 : 0
+  const H = (goals.length > 0 ? 760 + goalsHeight + 30 : 900) + logoExtra
 
   const canvas = document.createElement('canvas')
   canvas.width = W
@@ -108,7 +116,7 @@ export async function renderMatchImage(match: Match): Promise<Blob> {
 
   // Scorekaart
   const cardY = 310
-  const cardH = 360
+  const cardH = hasLogos ? 440 : 360
   ctx.fillStyle = COLORS.surface
   roundRect(ctx, 60, cardY, W - 120, cardH, 36)
   ctx.fill()
@@ -126,21 +134,30 @@ export async function renderMatchImage(match: Match): Promise<Blob> {
   ctx.font = '200 90px -apple-system, "Segoe UI", Roboto, sans-serif'
   ctx.fillText('—', cx, cardY + 175)
 
+  // Clublogo's
+  if (hasLogos) {
+    const logoSize = 90
+    const logoY = cardY + 238
+    if (homeLogoImg) ctx.drawImage(homeLogoImg, cx - 230 - logoSize / 2, logoY, logoSize, logoSize)
+    if (awayLogoImg) ctx.drawImage(awayLogoImg, cx + 230 - logoSize / 2, logoY, logoSize, logoSize)
+  }
+
   // Teamnamen
+  const labelY = cardY + (hasLogos ? 360 : 255)
   ctx.font = '500 24px -apple-system, "Segoe UI", Roboto, sans-serif'
   ctx.fillStyle = 'rgba(144,202,249,0.55)'
-  ctx.fillText('THUIS', cx - 230, cardY + 255)
+  ctx.fillText('THUIS', cx - 230, labelY)
   ctx.fillStyle = 'rgba(239,154,154,0.55)'
-  ctx.fillText('UIT', cx + 230, cardY + 255)
+  ctx.fillText('UIT', cx + 230, labelY)
 
-  drawTeamName(ctx, match.homeTeam, cx - 230, cardY + 305, 400, COLORS.homeText)
-  drawTeamName(ctx, match.awayTeam, cx + 230, cardY + 305, 400, COLORS.awayText)
+  drawTeamName(ctx, match.homeTeam, cx - 230, labelY + 50, 400, COLORS.homeText)
+  drawTeamName(ctx, match.awayTeam, cx + 230, labelY + 50, 400, COLORS.awayText)
 
   // Scheidslijntje
   ctx.strokeStyle = 'rgba(255,255,255,0.1)'
   ctx.beginPath()
   ctx.moveTo(cx, cardY + 235)
-  ctx.lineTo(cx, cardY + 320)
+  ctx.lineTo(cx, labelY + 65)
   ctx.stroke()
 
   // Doelpunten
@@ -202,6 +219,16 @@ export async function renderMatchImage(match: Match): Promise<Blob> {
 
   return new Promise((resolve, reject) => {
     canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error('render mislukt'))), 'image/png')
+  })
+}
+
+function loadImage(dataURL: string | undefined): Promise<HTMLImageElement | null> {
+  if (!dataURL) return Promise.resolve(null)
+  return new Promise((resolve) => {
+    const img = new Image()
+    img.onload = () => resolve(img)
+    img.onerror = () => resolve(null)
+    img.src = dataURL
   })
 }
 

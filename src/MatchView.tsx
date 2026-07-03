@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
-import type { Goal, Match, TeamSide } from './models'
-import { formatSeconds, homeGoals, awayGoals } from './models'
+import type { ClubColor, Goal, Match, TeamSide } from './models'
+import { clubColor, formatSeconds, homeGoals, awayGoals } from './models'
 import { shareMatchImage } from './shareImage'
 import {
   useMatch,
@@ -107,11 +107,13 @@ export default function MatchView({ match: initialMatch, onDismiss }: Props) {
           </div>
           <div className="team-names">
             <div className="side">
+              {match.homeLogo && <img className="side-logo" src={match.homeLogo} alt="" />}
               <div className="tag home-color" style={{ opacity: 0.5 }}>THUIS</div>
               <div className="name home-color">{match.homeTeam}</div>
             </div>
             <div className="divider" />
             <div className="side">
+              {match.awayLogo && <img className="side-logo" src={match.awayLogo} alt="" />}
               <div className="tag away-color" style={{ opacity: 0.5 }}>UIT</div>
               <div className="name away-color">{match.awayTeam}</div>
             </div>
@@ -120,14 +122,16 @@ export default function MatchView({ match: initialMatch, onDismiss }: Props) {
 
         <div className="goal-buttons">
           <GoalButton
-            variant={buttonVariant(match.homeTeam, 'home')}
+            color={buttonColor(match.homeTeam, 'home')}
             name={match.homeTeam}
+            logo={match.homeLogo}
             onGoal={() => scoreGoal('home')}
             onUndo={() => undoLastGoal('home')}
           />
           <GoalButton
-            variant={buttonVariant(match.awayTeam, 'away')}
+            color={buttonColor(match.awayTeam, 'away')}
             name={match.awayTeam}
+            logo={match.awayLogo}
             onGoal={() => scoreGoal('away')}
             onUndo={() => undoLastGoal('away')}
           />
@@ -277,14 +281,18 @@ export default function MatchView({ match: initialMatch, onDismiss }: Props) {
 
 // ---------- Subcomponents ----------
 
-// Clubs met een kleur in de naam (bijv. "Groen Wit") krijgen een
-// scoort-knop in die kleur in plaats van standaard blauw/rood.
-function buttonVariant(teamName: string, side: TeamSide): string {
-  if (/groen/i.test(teamName)) return 'green'
-  return side
+// Clubs met een kleur in de naam (bijv. "Groen Wit", "Blauw Zwart") krijgen
+// een scoort-knop in die kleur in plaats van standaard blauw/rood.
+const DEFAULT_COLORS: Record<TeamSide, ClubColor> = {
+  home: { bg: 'rgba(21, 101, 192, 0.85)', shadow: 'rgba(21, 101, 192, 0.45)', fg: '#fff' },
+  away: { bg: 'rgba(183, 28, 28, 0.85)', shadow: 'rgba(183, 28, 28, 0.45)', fg: '#fff' },
 }
 
-function GoalButton({ variant, name, onGoal, onUndo }: { variant: string; name: string; onGoal: () => void; onUndo: () => void }) {
+function buttonColor(teamName: string, side: TeamSide): ClubColor {
+  return clubColor(teamName) ?? DEFAULT_COLORS[side]
+}
+
+function GoalButton({ color, name, logo, onGoal, onUndo }: { color: ClubColor; name: string; logo?: string; onGoal: () => void; onUndo: () => void }) {
   const longPressTimer = useRef<number | null>(null)
   const longPressFired = useRef(false)
   const startPos = useRef<{ x: number; y: number } | null>(null)
@@ -332,7 +340,8 @@ function GoalButton({ variant, name, onGoal, onUndo }: { variant: string; name: 
 
   return (
     <button
-      className={`goal-btn ${variant}`}
+      className="goal-btn"
+      style={{ background: color.bg, boxShadow: `0 4px 10px ${color.shadow}`, color: color.fg }}
       onPointerDown={down}
       onPointerMove={move}
       onPointerUp={up}
@@ -340,8 +349,8 @@ function GoalButton({ variant, name, onGoal, onUndo }: { variant: string; name: 
       onPointerCancel={cancel}
       onContextMenu={(e) => e.preventDefault()}
     >
-      <div className="ball">⚽</div>
-      <div className="scoort">SCOORT</div>
+      {logo ? <img className="btn-logo" src={logo} alt="" draggable={false} /> : <div className="ball">⚽</div>}
+      <div className="scoort" style={{ color: color.fg, opacity: 0.65 }}>SCOORT</div>
       <div className="team">{name}</div>
     </button>
   )

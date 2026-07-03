@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import type { AgeCategory, Match, SavedTeam } from './models'
 import { CATEGORIES, halfDurationMinutes, newMatch, totalMatchMinutes } from './models'
 import { savedTeams, saveTeam } from './storage'
 import { lightTap } from './alarm'
+import { fileToLogoDataURL } from './logo'
 
 interface Props {
   onStartMatch: (match: Match) => void
@@ -14,6 +15,8 @@ export default function SetupView({ onStartMatch, onShowHistory, onShowRules }: 
   const [category, setCategory] = useState<AgeCategory>('JO10')
   const [homeTeam, setHomeTeam] = useState('')
   const [awayTeam, setAwayTeam] = useState('')
+  const [homeLogo, setHomeLogo] = useState<string | undefined>()
+  const [awayLogo, setAwayLogo] = useState<string | undefined>()
   const teams = savedTeams()
 
   const canStart = homeTeam.trim() !== '' && awayTeam.trim() !== ''
@@ -21,10 +24,10 @@ export default function SetupView({ onStartMatch, onShowHistory, onShowRules }: 
   function start() {
     const home = homeTeam.trim()
     const away = awayTeam.trim()
-    saveTeam(home, category)
-    saveTeam(away, category)
+    saveTeam(home, category, homeLogo)
+    saveTeam(away, category, awayLogo)
     lightTap()
-    onStartMatch(newMatch(home, away, category))
+    onStartMatch(newMatch(home, away, category, homeLogo, awayLogo))
   }
 
   return (
@@ -66,11 +69,17 @@ export default function SetupView({ onStartMatch, onShowHistory, onShowRules }: 
             icon="🏠"
             placeholder="Naam thuisteam"
             value={homeTeam}
+            logo={homeLogo}
             accent="var(--home-text)"
             teams={teams}
-            onChange={setHomeTeam}
+            onChange={(v) => {
+              setHomeTeam(v)
+              setHomeLogo(undefined)
+            }}
+            onLogo={setHomeLogo}
             onPick={(t) => {
               setHomeTeam(t.name)
+              setHomeLogo(t.logo)
               setCategory(t.ageCategory)
             }}
           />
@@ -84,11 +93,17 @@ export default function SetupView({ onStartMatch, onShowHistory, onShowRules }: 
             icon="✈️"
             placeholder="Naam uitteam"
             value={awayTeam}
+            logo={awayLogo}
             accent="var(--away-text)"
             teams={teams}
-            onChange={setAwayTeam}
+            onChange={(v) => {
+              setAwayTeam(v)
+              setAwayLogo(undefined)
+            }}
+            onLogo={setAwayLogo}
             onPick={(t) => {
               setAwayTeam(t.name)
+              setAwayLogo(t.logo)
               setCategory(t.ageCategory)
             }}
           />
@@ -116,14 +131,17 @@ interface TeamInputProps {
   icon: string
   placeholder: string
   value: string
+  logo?: string
   accent: string
   teams: SavedTeam[]
   onChange: (v: string) => void
+  onLogo: (dataURL: string | undefined) => void
   onPick: (t: SavedTeam) => void
 }
 
-function TeamInput({ title, icon, placeholder, value, accent, teams, onChange, onPick }: TeamInputProps) {
+function TeamInput({ title, icon, placeholder, value, logo, accent, teams, onChange, onLogo, onPick }: TeamInputProps) {
   const [focused, setFocused] = useState(false)
+  const fileRef = useRef<HTMLInputElement>(null)
 
   const trimmed = value.trim()
   const filtered = (
@@ -134,20 +152,48 @@ function TeamInput({ title, icon, placeholder, value, accent, teams, onChange, o
 
   const showSuggestions = focused && filtered.length > 0
 
+  async function pickLogo(file: File | undefined) {
+    if (!file) return
+    try {
+      onLogo(await fileToLogoDataURL(file))
+    } catch {
+      // ongeldig bestand — negeren
+    }
+  }
+
   return (
     <div className="team-field" style={{ ['--focus-color' as string]: accent }}>
       <div className="field-title">
         <span style={{ fontSize: 11 }}>{icon}</span>
         <span className="section-label">{title}</span>
       </div>
-      <input
-        type="text"
-        placeholder={placeholder}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        onFocus={() => setFocused(true)}
-        onBlur={() => setTimeout(() => setFocused(false), 150)}
-      />
+      <div className="input-row">
+        <input
+          type="text"
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setTimeout(() => setFocused(false), 150)}
+        />
+        <button
+          className="logo-pick"
+          title="Clublogo kiezen"
+          onClick={() => fileRef.current?.click()}
+        >
+          {logo ? <img src={logo} alt="" /> : <span>🛡️</span>}
+        </button>
+        <input
+          ref={fileRef}
+          type="file"
+          accept="image/*"
+          hidden
+          onChange={(e) => {
+            void pickLogo(e.target.files?.[0])
+            e.target.value = ''
+          }}
+        />
+      </div>
       {showSuggestions && (
         <div className="suggestions">
           {filtered.map((team) => (
@@ -160,7 +206,11 @@ function TeamInput({ title, icon, placeholder, value, accent, teams, onChange, o
                 setFocused(false)
               }}
             >
-              <span style={{ fontSize: 12, opacity: 0.6 }}>🕐</span>
+              {team.logo ? (
+                <img className="suggestion-logo" src={team.logo} alt="" />
+              ) : (
+                <span style={{ fontSize: 12, opacity: 0.6 }}>🕐</span>
+              )}
               {team.name}
               <span className="badge">{team.ageCategory}</span>
             </button>

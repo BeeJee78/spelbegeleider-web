@@ -43,9 +43,15 @@ export function savedTeams(): SavedTeam[] {
   return load<SavedTeam>(TEAMS_KEY)
 }
 
-export function saveTeam(name: string, category: AgeCategory) {
+export function saveTeam(name: string, category: AgeCategory, logo?: string) {
   if (!name) return
-  let teams = savedTeams().filter((t) => t.name.toLowerCase() !== name.toLowerCase())
-  teams.unshift({ id: crypto.randomUUID(), name, ageCategory: category })
+  const existing = savedTeams().find((t) => t.name.toLowerCase() === name.toLowerCase())
+  const teams = savedTeams().filter((t) => t.name.toLowerCase() !== name.toLowerCase())
+  teams.unshift({
+    id: crypto.randomUUID(),
+    name,
+    ageCategory: category,
+    logo: logo ?? existing?.logo,
+  })
   save(TEAMS_KEY, teams.slice(0, 15))
 }
