@@ -4,6 +4,7 @@ import SetupView from './SetupView'
 import MatchView from './MatchView'
 import HistoryView from './HistoryView'
 import RulesView from './RulesView'
+import FieldBackground from './FieldBackground'
 
 export default function App() {
   const [activeMatch, setActiveMatch] = useState<Match | null>(null)
@@ -12,6 +13,7 @@ export default function App() {
 
   return (
     <>
+      <FieldBackground />
       {activeMatch ? (
         <MatchView key={activeMatch.id} match={activeMatch} onDismiss={() => setActiveMatch(null)} />
       ) : (

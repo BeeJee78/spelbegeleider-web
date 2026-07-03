@@ -29,7 +29,6 @@ export default function SetupView({ onStartMatch, onShowHistory, onShowRules }: 
 
   return (
     <div className="screen">
-      <div className="grid-bg" />
       <div className="setup">
         <header className="setup-header">
           <div className="ball">⚽</div>
