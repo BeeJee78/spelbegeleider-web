@@ -4,6 +4,7 @@ import { CATEGORIES, halfDurationMinutes, newMatch, totalMatchMinutes } from './
 import { savedTeams, saveTeam } from './storage'
 import { lightTap } from './alarm'
 import { fileToLogoDataURL } from './logo'
+import { presetLogo } from './presetLogos'
 
 interface Props {
   onStartMatch: (match: Match) => void
@@ -74,12 +75,12 @@ export default function SetupView({ onStartMatch, onShowHistory, onShowRules }: 
             teams={teams}
             onChange={(v) => {
               setHomeTeam(v)
-              setHomeLogo(undefined)
+              setHomeLogo(presetLogo(v))
             }}
             onLogo={setHomeLogo}
             onPick={(t) => {
               setHomeTeam(t.name)
-              setHomeLogo(t.logo)
+              setHomeLogo(t.logo ?? presetLogo(t.name))
               setCategory(t.ageCategory)
             }}
           />
@@ -98,12 +99,12 @@ export default function SetupView({ onStartMatch, onShowHistory, onShowRules }: 
             teams={teams}
             onChange={(v) => {
               setAwayTeam(v)
-              setAwayLogo(undefined)
+              setAwayLogo(presetLogo(v))
             }}
             onLogo={setAwayLogo}
             onPick={(t) => {
               setAwayTeam(t.name)
-              setAwayLogo(t.logo)
+              setAwayLogo(t.logo ?? presetLogo(t.name))
               setCategory(t.ageCategory)
             }}
           />
