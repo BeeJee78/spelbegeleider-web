@@ -119,8 +119,18 @@ export default function MatchView({ match: initialMatch, onDismiss }: Props) {
         </div>
 
         <div className="goal-buttons">
-          <GoalButton team="home" name={match.homeTeam} onGoal={() => scoreGoal('home')} onUndo={() => undoLastGoal('home')} />
-          <GoalButton team="away" name={match.awayTeam} onGoal={() => scoreGoal('away')} onUndo={() => undoLastGoal('away')} />
+          <GoalButton
+            variant={buttonVariant(match.homeTeam, 'home')}
+            name={match.homeTeam}
+            onGoal={() => scoreGoal('home')}
+            onUndo={() => undoLastGoal('home')}
+          />
+          <GoalButton
+            variant={buttonVariant(match.awayTeam, 'away')}
+            name={match.awayTeam}
+            onGoal={() => scoreGoal('away')}
+            onUndo={() => undoLastGoal('away')}
+          />
         </div>
 
         <div>
@@ -267,7 +277,14 @@ export default function MatchView({ match: initialMatch, onDismiss }: Props) {
 
 // ---------- Subcomponents ----------
 
-function GoalButton({ team, name, onGoal, onUndo }: { team: TeamSide; name: string; onGoal: () => void; onUndo: () => void }) {
+// Clubs met een kleur in de naam (bijv. "Groen Wit") krijgen een
+// scoort-knop in die kleur in plaats van standaard blauw/rood.
+function buttonVariant(teamName: string, side: TeamSide): string {
+  if (/groen/i.test(teamName)) return 'green'
+  return side
+}
+
+function GoalButton({ variant, name, onGoal, onUndo }: { variant: string; name: string; onGoal: () => void; onUndo: () => void }) {
   const longPressTimer = useRef<number | null>(null)
   const longPressFired = useRef(false)
   const startPos = useRef<{ x: number; y: number } | null>(null)
@@ -315,7 +332,7 @@ function GoalButton({ team, name, onGoal, onUndo }: { team: TeamSide; name: stri
 
   return (
     <button
-      className={`goal-btn ${team}`}
+      className={`goal-btn ${variant}`}
       onPointerDown={down}
       onPointerMove={move}
       onPointerUp={up}

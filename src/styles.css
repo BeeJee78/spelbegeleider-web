@@ -530,6 +530,11 @@ input {
   box-shadow: 0 4px 10px rgba(183, 28, 28, 0.45);
 }
 
+.goal-btn.green {
+  background: rgba(46, 125, 50, 0.9);
+  box-shadow: 0 4px 10px rgba(76, 175, 80, 0.45);
+}
+
 .goal-btn .ball {
   font-size: 30px;
 }
