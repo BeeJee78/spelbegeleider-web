@@ -1,9 +1,8 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import type { AgeCategory, Match, SavedTeam } from './models'
 import { CATEGORIES, halfDurationMinutes, newMatch, totalMatchMinutes } from './models'
 import { savedTeams, saveTeam } from './storage'
 import { lightTap } from './alarm'
-import { fileToLogoDataURL } from './logo'
 import { presetLogo } from './presetLogos'
 
 interface Props {
@@ -77,7 +76,6 @@ export default function SetupView({ onStartMatch, onShowHistory, onShowRules }: 
               setHomeTeam(v)
               setHomeLogo(presetLogo(v))
             }}
-            onLogo={setHomeLogo}
             onPick={(t) => {
               setHomeTeam(t.name)
               setHomeLogo(t.logo ?? presetLogo(t.name))
@@ -101,7 +99,6 @@ export default function SetupView({ onStartMatch, onShowHistory, onShowRules }: 
               setAwayTeam(v)
               setAwayLogo(presetLogo(v))
             }}
-            onLogo={setAwayLogo}
             onPick={(t) => {
               setAwayTeam(t.name)
               setAwayLogo(t.logo ?? presetLogo(t.name))
@@ -136,13 +133,11 @@ interface TeamInputProps {
   accent: string
   teams: SavedTeam[]
   onChange: (v: string) => void
-  onLogo: (dataURL: string | undefined) => void
   onPick: (t: SavedTeam) => void
 }
 
-function TeamInput({ title, icon, placeholder, value, logo, accent, teams, onChange, onLogo, onPick }: TeamInputProps) {
+function TeamInput({ title, icon, placeholder, value, logo, accent, teams, onChange, onPick }: TeamInputProps) {
   const [focused, setFocused] = useState(false)
-  const fileRef = useRef<HTMLInputElement>(null)
 
   const trimmed = value.trim()
   const filtered = (
@@ -152,15 +147,6 @@ function TeamInput({ title, icon, placeholder, value, logo, accent, teams, onCha
   ).slice(0, 6)
 
   const showSuggestions = focused && filtered.length > 0
-
-  async function pickLogo(file: File | undefined) {
-    if (!file) return
-    try {
-      onLogo(await fileToLogoDataURL(file))
-    } catch {
-      // ongeldig bestand — negeren
-    }
-  }
 
   return (
     <div className="team-field" style={{ ['--focus-color' as string]: accent }}>
@@ -177,23 +163,11 @@ function TeamInput({ title, icon, placeholder, value, logo, accent, teams, onCha
           onFocus={() => setFocused(true)}
           onBlur={() => setTimeout(() => setFocused(false), 150)}
         />
-        <button
-          className="logo-pick"
-          title="Clublogo kiezen"
-          onClick={() => fileRef.current?.click()}
-        >
-          {logo ? <img src={logo} alt="" /> : <span>🛡️</span>}
-        </button>
-        <input
-          ref={fileRef}
-          type="file"
-          accept="image/*"
-          hidden
-          onChange={(e) => {
-            void pickLogo(e.target.files?.[0])
-            e.target.value = ''
-          }}
-        />
+        {logo && (
+          <span className="logo-pick" aria-hidden="true">
+            <img src={logo} alt="" />
+          </span>
+        )}
       </div>
       {showSuggestions && (
         <div className="suggestions">
