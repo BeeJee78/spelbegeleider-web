@@ -1182,6 +1182,35 @@ input {
 
 .rule-row .rvalue.accent { color: var(--accent); }
 
+.tip-card {
+  background: rgba(118, 255, 3, 0.06);
+  border: 1px solid rgba(118, 255, 3, 0.2);
+  border-radius: 16px;
+  padding: 16px 18px;
+  margin-bottom: 20px;
+}
+
+.tip-card .tip-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.tip-card p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.tip-card p + p {
+  margin-top: 8px;
+}
+
+.tip-card strong {
+  color: #fff;
+}
+
 .link-btn {
   display: flex;
   align-items: center;

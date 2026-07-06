@@ -53,6 +53,18 @@ export default function RulesView({ onClose }: { onClose: () => void }) {
           <RuleRow icon="🚶" label="Uitbal" value="Indribbelen (geen ingooi)" />
         </div>
 
+        <div className="tip-card">
+          <div className="tip-title">💡 Veld uitzetten</div>
+          <p>
+            Zet de hoekpionnen <strong>12,5 meter naast elke paal van het pupillendoel</strong>{' '}
+            (samen 30 m breed) en zet het veld <strong>42,5 m diep</strong> uit.
+          </p>
+          <p>
+            Markeer het keepersgebied met twee pionnen in een afwijkende kleur op{' '}
+            <strong>7 meter van de achterlijn</strong>.
+          </p>
+        </div>
+
         <a className="link-btn" href={KNVB_URL} target="_blank" rel="noopener noreferrer">
           <span style={{ fontSize: 16 }}>🌐</span>
           <div>
