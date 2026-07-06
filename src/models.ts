@@ -76,9 +76,8 @@ export function totalMatchMinutes(cat: AgeCategory): number {
 export const PLAYERS_PER_SIDE = 6
 export const FIELD_SIZE = '42,5 × 30 m'
 
-export function goalSize(cat: AgeCategory): string {
-  return cat === 'JO10' ? '6 × 2 m' : '5 × 2 m'
-}
+// O8 t/m O10 spelen allemaal met het pupillendoel (bron: KNVB spelregels 6 tegen 6)
+export const GOAL_SIZE = '5 × 2 m'
 
 export const KNVB_URL = 'https://www.knvb.nl/ontdek-voetbal/pupillenvoetbal/onder-8-t/m-10'
 export const KNVB_INFOGRAPHIC_URL =

@@ -6,7 +6,7 @@ import {
   KNVB_INFOGRAPHIC_URL,
   KNVB_URL,
   PLAYERS_PER_SIDE,
-  goalSize,
+  GOAL_SIZE,
   halfDurationMinutes,
   totalMatchMinutes,
 } from './models'
@@ -48,7 +48,7 @@ export default function RulesView({ onClose }: { onClose: () => void }) {
           <RuleRow icon="⏱️" label="Time-out" value="Halverwege elke helft · max. 2 min." />
           <RuleRow icon="⏸️" label="Rust" value={`Na ${halfDurationMinutes(category)} min · max. 10 min.`} />
           <RuleRow icon="↔️" label="Veldmaat" value={FIELD_SIZE} />
-          <RuleRow icon="🥅" label="Doel" value={goalSize(category)} />
+          <RuleRow icon="🥅" label="Doel" value={GOAL_SIZE} />
           <RuleRow icon="🚩" label="Buitenspel" value="Nee" accent />
           <RuleRow icon="🚶" label="Uitbal" value="Indribbelen (geen ingooi)" />
         </div>
