@@ -15,3 +15,9 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
     void navigator.serviceWorker.register('./sw.js')
   })
 }
+
+// Vraag persistente opslag aan zodat de historie niet opgeruimd wordt
+// bij opslagkrapte (wordt voor geïnstalleerde PWA's stilzwijgend toegekend)
+if (navigator.storage?.persist) {
+  void navigator.storage.persist()
+}
