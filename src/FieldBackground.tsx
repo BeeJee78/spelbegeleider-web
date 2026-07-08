@@ -2,7 +2,7 @@
 // middencirkel en strafschopgebieden. Bewust donker en subtiel gehouden
 // zodat de content leesbaar blijft.
 export default function FieldBackground() {
-  const line = 'rgba(255,255,255,0.085)'
+  const line = 'rgba(255,255,255,0.055)'
   return (
     <svg className="field-bg" viewBox="0 0 390 844" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <defs>
@@ -16,7 +16,7 @@ export default function FieldBackground() {
 
       {/* Maai-banen */}
       {[0, 2, 4, 6, 8].map((i) => (
-        <rect key={i} x="0" y={i * 105.5} width="390" height="52.75" fill="rgba(255,255,255,0.027)" />
+        <rect key={i} x="0" y={i * 105.5} width="390" height="52.75" fill="rgba(255,255,255,0.02)" />
       ))}
 
       {/* Veldlijnen */}

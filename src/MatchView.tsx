@@ -108,13 +108,13 @@ export default function MatchView({ match: initialMatch, onDismiss }: Props) {
           <div className="team-names">
             <div className="side">
               {match.homeLogo && <img className="side-logo" src={match.homeLogo} alt="" />}
-              <div className="tag home-color" style={{ opacity: 0.5 }}>THUIS</div>
+              <div className="tag home-color" style={{ opacity: 0.8 }}>THUIS</div>
               <div className="name home-color">{match.homeTeam}</div>
             </div>
             <div className="divider" />
             <div className="side">
               {match.awayLogo && <img className="side-logo" src={match.awayLogo} alt="" />}
-              <div className="tag away-color" style={{ opacity: 0.5 }}>UIT</div>
+              <div className="tag away-color" style={{ opacity: 0.8 }}>UIT</div>
               <div className="name away-color">{match.awayTeam}</div>
             </div>
           </div>
@@ -137,7 +137,7 @@ export default function MatchView({ match: initialMatch, onDismiss }: Props) {
           />
         </div>
 
-        <div>
+        <div className="card goals-card">
           <div className="section-label" style={{ marginBottom: 6 }}>Doelpunten</div>
           {match.goals.length === 0 ? (
             <div className="no-goals">Nog geen doelpunten</div>
@@ -350,7 +350,7 @@ function GoalButton({ color, name, logo, onGoal, onUndo }: { color: ClubColor; n
       onContextMenu={(e) => e.preventDefault()}
     >
       {logo ? <img className="btn-logo" src={logo} alt="" draggable={false} /> : <div className="ball">⚽</div>}
-      <div className="scoort" style={{ color: color.fg, opacity: 0.65 }}>SCOORT</div>
+      <div className="scoort" style={{ color: color.fg, opacity: 0.8 }}>SCOORT</div>
       <div className="team">{name}</div>
     </button>
   )

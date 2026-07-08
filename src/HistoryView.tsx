@@ -95,12 +95,12 @@ function MatchDetail({ match, onClose }: { match: Match; onClose: () => void }) 
           </div>
           <div className="team-names" style={{ marginTop: 14 }}>
             <div className="side">
-              <div className="tag home-color" style={{ opacity: 0.5 }}>THUIS</div>
+              <div className="tag home-color" style={{ opacity: 0.8 }}>THUIS</div>
               <div className="name home-color">{match.homeTeam}</div>
             </div>
             <div className="divider" />
             <div className="side">
-              <div className="tag away-color" style={{ opacity: 0.5 }}>UIT</div>
+              <div className="tag away-color" style={{ opacity: 0.8 }}>UIT</div>
               <div className="name away-color">{match.awayTeam}</div>
             </div>
           </div>
