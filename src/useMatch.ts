@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import type { Goal, Match, TeamSide } from './models'
-import { periodDurationSeconds } from './models'
+import type { AgeCategory, Goal, Match, TeamSide } from './models'
+import { periodDurationSeconds, restMinutes } from './models'
 import { triggerPeriodEnd, goalHaptic, lightTap, initAudio } from './alarm'
 import { upsertMatch } from './storage'
 
@@ -290,8 +290,8 @@ export function endOfPeriodTitle(period: number): string {
   }
 }
 
-export function endOfPeriodSubtitle(period: number): string {
-  return period === 2 ? 'Max. 10 minuten' : ''
+export function endOfPeriodSubtitle(period: number, cat: AgeCategory): string {
+  return period === 2 ? `Max. ${restMinutes(cat)} minuten` : ''
 }
 
 export function endOfPeriodIcon(period: number): string {

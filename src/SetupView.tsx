@@ -38,7 +38,7 @@ export default function SetupView({ onStartMatch, onShowHistory, onShowRules }: 
           <h1 className="wordmark">
             SPEL<span>BEGELEIDER</span>
           </h1>
-          <div className="subtitle-pill">JEUGDVOETBAL · JO8–JO10</div>
+          <div className="subtitle-pill">JEUGDVOETBAL · JO8–JO12</div>
         </header>
 
         <div className="card">

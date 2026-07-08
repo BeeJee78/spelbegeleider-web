@@ -193,8 +193,8 @@ export default function MatchView({ match: initialMatch, onDismiss }: Props) {
                   <div className="label">{timeoutRemaining === 0 ? 'Klaar om te hervatten' : 'time-out afteller'}</div>
                 </div>
               ) : (
-                endOfPeriodSubtitle(currentPeriod) && (
-                  <div className="subtitle">{endOfPeriodSubtitle(currentPeriod)}</div>
+                endOfPeriodSubtitle(currentPeriod, match.ageCategory) && (
+                  <div className="subtitle">{endOfPeriodSubtitle(currentPeriod, match.ageCategory)}</div>
                 )
               )}
             </div>

@@ -1,5 +1,5 @@
-export type AgeCategory = 'JO8' | 'JO9' | 'JO10'
-export const CATEGORIES: AgeCategory[] = ['JO8', 'JO9', 'JO10']
+export type AgeCategory = 'JO8' | 'JO9' | 'JO10' | 'JO11' | 'JO12'
+export const CATEGORIES: AgeCategory[] = ['JO8', 'JO9', 'JO10', 'JO11', 'JO12']
 
 export type TeamSide = 'home' | 'away'
 
@@ -59,29 +59,66 @@ export function clubColor(teamName: string): ClubColor | null {
   return CLUB_COLORS[color]
 }
 
-// Speelduur en regels conform KNVB pupillenvoetbal.
+// Speelduur en regels conform KNVB pupillenvoetbal (infographics seizoen 2026/'27):
+// O8/O9/O10 spelen 6 tegen 6, O11/O12 spelen 8 tegen 8.
 // Elke helft is verdeeld in 2 periodes (voor en na de time-out).
+
+export function isEightVsEight(cat: AgeCategory): boolean {
+  return cat === 'JO11' || cat === 'JO12'
+}
+
 export function halfDurationMinutes(cat: AgeCategory): number {
+  if (isEightVsEight(cat)) return 30
   return cat === 'JO10' ? 25 : 20
 }
 
 export function periodDurationSeconds(cat: AgeCategory): number {
-  return cat === 'JO10' ? 750 : 600
+  // Halve helft (tot aan de time-out) in seconden
+  return halfDurationMinutes(cat) * 30
 }
 
 export function totalMatchMinutes(cat: AgeCategory): number {
   return halfDurationMinutes(cat) * 2
 }
 
-export const PLAYERS_PER_SIDE = 6
-export const FIELD_SIZE = '42,5 × 30 m'
+export function restMinutes(cat: AgeCategory): number {
+  return isEightVsEight(cat) ? 15 : 10
+}
 
-// O8 t/m O10 spelen allemaal met het pupillendoel (bron: KNVB spelregels 6 tegen 6)
+export function playersPerSide(cat: AgeCategory): number {
+  return isEightVsEight(cat) ? 8 : 6
+}
+
+export function fieldSize(cat: AgeCategory): string {
+  return isEightVsEight(cat) ? '64 × 42,5 m' : '42,5 × 30 m'
+}
+
+export function ballSize(cat: AgeCategory): string {
+  return isEightVsEight(cat) ? 'Maat 5 (320 gr)' : 'Maat 4 (290 gr)'
+}
+
+export function penaltyDistance(cat: AgeCategory): string {
+  return isEightVsEight(cat) ? '9 meter' : '7 meter'
+}
+
+export function matchLeader(cat: AgeCategory): string {
+  return isEightVsEight(cat) ? 'Pupillenscheidsrechter (12+)' : 'Spelbegeleider'
+}
+
+// Alle categorieën spelen met het pupillendoel
 export const GOAL_SIZE = '5 × 2 m'
 
-export const KNVB_URL = 'https://www.knvb.nl/ontdek-voetbal/pupillenvoetbal/onder-8-t/m-10'
-export const KNVB_INFOGRAPHIC_URL =
-  'https://www.knvb.nl/downloads/sites/bestand/knvb/12343/infographic-6-tegen-6'
+export function knvbURL(cat: AgeCategory): string {
+  return isEightVsEight(cat)
+    ? 'https://www.knvb.nl/ontdek-voetbal/pupillenvoetbal/onder-11-t/m-12'
+    : 'https://www.knvb.nl/ontdek-voetbal/pupillenvoetbal/onder-8-t/m-10'
+}
+
+export function knvbInfographicURL(cat: AgeCategory): string {
+  return isEightVsEight(cat)
+    ? 'https://www.knvb.nl/downloads/sites/bestand/knvb/14647/infographic-8-tegen-8'
+    : 'https://www.knvb.nl/downloads/sites/bestand/knvb/12343/infographic-6-tegen-6'
+}
 
 export function newMatch(
   homeTeam: string,

@@ -148,15 +148,16 @@ input {
 
 .chip-row {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   margin-top: 14px;
 }
 
 .chip {
   flex: 1;
-  padding: 10px 14px;
+  min-width: 0;
+  padding: 10px 4px;
   border-radius: 10px;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.55);
   background: rgba(255, 255, 255, 0.07);
