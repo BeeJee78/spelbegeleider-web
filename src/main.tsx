@@ -21,3 +21,9 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
 if (navigator.storage?.persist) {
   void navigator.storage.persist()
 }
+
+// Start altijd bovenaan; voorkom dat de browser een oude scrollpositie herstelt
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual'
+}
+window.scrollTo(0, 0)
